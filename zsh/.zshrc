@@ -23,6 +23,9 @@ source /usr/share/zsh/plugins/fast-syntax-highlighting/fast-syntax-highlighting.
 # Jump Around
 source /usr/share/z/z.sh
 
+# Prompt
+source ~/.config/zsh/prompt.zsh
+
 # Fuzzy Finder  
 source ~/.config/zsh/fzf.zsh
 
