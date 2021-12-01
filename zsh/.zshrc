@@ -1,6 +1,5 @@
-# Use vi mode
-bindkey -v
-export KEYTIMEOUT=1
+# Vi mode
+source ~/.config/zsh/vimode.zsh
 
 # History Settings
 source ~/.config/zsh/history.zsh
@@ -18,7 +17,7 @@ source ~/.config/zsh/aliases.zsh
 source /usr/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
 
 # Fish like syntax highlighting
-source /usr/share/zsh/plugins/fast-syntax-highlighting/fast-syntax-highlighting.plugin.zsh
+source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 
 # Jump Around
 source /usr/share/z/z.sh

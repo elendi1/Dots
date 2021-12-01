@@ -1,16 +1,38 @@
-/* Xft.dpi: 180
+Xft.dpi: 96
 
 Xft.autohint: 0
 Xft.lcdfilter:  lcddefault
 Xft.hintstyle:  hintfull
 Xft.hinting: 1
 Xft.antialias: 1
-Xft.rgba: rgb */
+Xft.rgba: rgb 
 
+/*
 Xcursor.theme: xcursor-neutral
 Xcursor.size: 32
+*/
 
-URxvt.font: xft:FiraCode Nerd Font Mono:style=Regular:size=10
-URxvt.boldFont: xft:FiraCode Nerd Font Mono:style=Bold:size=10
+! TokyoNight colors for Xresources
+*background: #1a1b26
+*foreground: #c0caf5
 
-#include "~/.config/x/xresources_tokyonight_storm.Xresources"
+*color0: #15161E
+*color1: #f7768e
+*color2: #9ece6a
+*color3: #e0af68
+*color4: #7aa2f7
+*color5: #bb9af7
+*color6: #7dcfff
+*color7: #a9b1d6
+
+*color8: #414868
+*color9: #f7768e
+*color10: #9ece6a
+*color11: #e0af68
+*color12: #7aa2f7
+*color13: #bb9af7
+*color14: #7dcfff
+*color15: #c0caf5
+
+*.font:	Monospace:size=10:antialias=true:autohint=true;
+*.fontalt0:Noto Color Emoji:size=10:antialias=true:autohint=true;

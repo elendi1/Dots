@@ -1,19 +1,18 @@
-#"MesloLGS 
 font:
   normal:
-    family: "FiraCode Nerd Font Mono"
-    style: Medium
+    family: "monospace"
+    style: Regular
 
   bold:
-    family: "FiraCode Nerd Font Mono"
+    family: "monospace"
     style: Bold
 
   italic:
-    family: "FiraCode Nerd Font Mono"
+    family: "monospace"
     style: Italic
 
   bold_italic:
-    family: "FiraCode Nerd Font Mono"
+    family: "monospace"
     style: Bold Italic
 
   size: 10
@@ -56,5 +55,3 @@ colors:
   indexed_colors:
     - { index: 16, color: '0xff9e64' }
     - { index: 17, color: '0xdb4b4b' }
-    
-  
