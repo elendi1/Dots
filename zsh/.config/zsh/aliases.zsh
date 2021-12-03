@@ -1,4 +1,6 @@
-alias v="nvim"
+# nvim/lvim aliases
+alias v='nvim'
+alias lvim='~/.local/bin/lvim'
 
 # Extract any archive with "x" alias using "atool"
 alias x="atool -x"
