@@ -37,7 +37,7 @@ setxkbmap it &
 xrandr -s 1920x1080 &
 
 # Setting wallpaper
-feh --bg-center ~/Immagini/Wallpapers/default &
+feh --bg-center ~/Pictures/Wallpapers/default &
 
 # Compositor
 picom -f &
