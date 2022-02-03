@@ -10,7 +10,7 @@ an executable
 
 -- general
 lvim.log.level = "warn"
-lvim.format_on_save = true
+lvim.format_on_save = false
 lvim.colorscheme = "tokyonight"
 vim.g.tokyonight_style = "night"
 
@@ -86,11 +86,16 @@ lvim.lsp.automatic_servers_installation = false
 
 -- ---@usage Select which servers should be configured manually. Requires `:LvimCacheRest` to take effect.
 -- See the full default list `:lua print(vim.inspect(lvim.lsp.override))`
--- vim.list_extend(lvim.lsp.override, { "pyright" })
+vim.list_extend(lvim.lsp.override, { "pyright" })
 
 -- ---@usage setup a server -- see: https://www.lunarvim.org/languages/#overriding-the-default-configuration
--- local opts = {} -- check the lspconfig documentation for a list of all possible options
--- require("lvim.lsp.manager").setup("pylsp", opts)
+local opts = {} -- check the lspconfig documentation for a list of all possible options
+local servers = require "nvim-lsp-installer.servers"
+local server_available, requested_server = servers.get_server "pylsp"
+if server_available then
+  opts.cmd_env = requested_server:get_default_options().cmd_env
+end
+require("lvim.lsp.manager").setup("pylsp", opts)
 
 -- -- you can set a custom on_attach function that will be used for all the language servers
 -- -- See <https://github.com/neovim/nvim-lspconfig#keybindings-and-completion>
@@ -137,13 +142,13 @@ lvim.lsp.automatic_servers_installation = false
 -- }
 
 -- Additional Plugins
-lvim.plugins = {
+ lvim.plugins = {
      {"folke/tokyonight.nvim"},
      {
        "folke/trouble.nvim",
        cmd = "TroubleToggle",
      },
-}
+ }
 
 -- Autocommands (https://neovim.io/doc/user/autocmd.html)
 -- lvim.autocommands.custom_groups = {
