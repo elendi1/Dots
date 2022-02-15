@@ -49,5 +49,5 @@ picom -f &
 dwmstatus &> /dev/null &
 
 # Launching dwm
-exec dwm
+exec dwm 2> ~/.dwm.log
 
