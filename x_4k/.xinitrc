@@ -33,6 +33,9 @@ fi
 # Keyboard Layout
 setxkbmap it &
 
+# Map CapsLock to Escape
+setxkbmap -option caps:escape
+
 # Display Resolution
 xrandr -s 3840x2160 &
 
