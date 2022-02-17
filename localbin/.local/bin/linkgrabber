@@ -1,0 +1,5 @@
+#!/bin/sh
+regex='(((http|https|ftp|gopher)|mailto)[.:][^ >"\t]*|www\.[-a-z0-9.]+)[^ .,;\t>">\):]'
+#url=$(grep -Po "$regex" | dmenu -fn "DejaVu Sans:size=10" -nb "#1a1b26" -nf "#c0caf5" -sb b"#1a1b26" -sf green -p "Go:" -w "$WINDOWID") || exit
+url=$(grep -Po "$regex" | dmenu -fn "monospace:size=10" -nb "#1a1b26" -nf "#c0caf5" -sb "#1a1b26" -sf "#9ece6a" -p "Go:" -w "$WINDOWID") || exit
+$BROWSER "$url"
