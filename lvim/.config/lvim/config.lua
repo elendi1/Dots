@@ -44,37 +44,47 @@ end
 require("lvim.lsp.manager").setup("pylsp", opts)
 
 -- DAP
-local dap = require('dap')
-dap.adapters.python = {
-  type = 'executable';
-  command = os.getenv('HOME') .. '/.config/lvim/debugpy/bin/python';
-  args = { '-m', 'debugpy.adapter' };
+-- DAP vtext
+require("nvim-dap-virtual-text").setup {
+    commented = true,
 }
-
-dap.configurations.python = {
-  {
-    -- The first three options are required by nvim-dap
-    type = 'python'; -- the type here established the link to the adapter definition: `dap.adapters.python`
-    request = 'launch';
-    name = "Launch file";
-
-    -- Options below are for debugpy, see https://github.com/microsoft/debugpy/wiki/Debug-configuration-settings for supported options
-
-    program = "${file}"; -- This configuration will launch the current file if used.
-    pythonPath = function()
-      -- debugpy supports launching an application with a different interpreter then the one used to launch debugpy itself.
-      -- The code below looks for a `venv` or `.venv` folder in the current directly and uses the python within.
-      -- You could adapt this - to for example use the `VIRTUAL_ENV` environment variable.
-      local cwd = vim.fn.getcwd()
-      if vim.fn.executable(cwd .. '/venv/bin/python') == 1 then
-        return cwd .. '/venv/bin/python'
-      elseif vim.fn.executable(cwd .. '/.venv/bin/python') == 1 then
-        return cwd .. '/.venv/bin/python'
-      else
-        return '/usr/bin/python'
-      end
-    end;
-  },
+-- DAP UI
+local dap, dapui = require "dap", require "dapui"
+dapui.setup {} -- use default
+dap.listeners.after.event_initialized["dapui_config"] = function()
+  dapui.open()
+end
+dap.listeners.before.event_terminated["dapui_config"] = function()
+  dapui.close()
+end
+dap.listeners.before.event_exited["dapui_config"] = function()
+  dapui.close()
+end
+-- DAP Python
+require('dap-python').setup('~/.virtualenvs/debugpy/bin/python')
+-- DAP Keybindings
+lvim.builtin.which_key.mappings["d"] = {
+   name = "+Debugger",
+   R = { "<cmd>lua require'dap'.run_to_cursor()<cr>", "Run to Cursor" },
+   E = { "<cmd>lua require'dapui'.eval(vim.fn.input '[Expression] > ')<cr>", "Evaluate Input" },
+   C = { "<cmd>lua require'dap'.set_breakpoint(vim.fn.input '[Condition] > ')<cr>", "Conditional Breakpoint" },
+   U = { "<cmd>lua require'dapui'.toggle()<cr>", "Toggle UI" },
+   b = { "<cmd>lua require'dap'.step_back()<cr>", "Step Back" },
+   c = { "<cmd>lua require'dap'.continue()<cr>", "Continue" },
+   d = { "<cmd>lua require'dap'.disconnect()<cr>", "Disconnect" },
+   e = { "<cmd>lua require'dapui'.eval()<cr>", "Evaluate" },
+   g = { "<cmd>lua require'dap'.session()<cr>", "Get Session" },
+   h = { "<cmd>lua require'dap.ui.widgets'.hover()<cr>", "Hover Variables" },
+   S = { "<cmd>lua require'dap.ui.widgets'.scopes()<cr>", "Scopes" },
+   i = { "<cmd>lua require'dap'.step_into()<cr>", "Step Into" },
+   o = { "<cmd>lua require'dap'.step_over()<cr>", "Step Over" },
+   p = { "<cmd>lua require'dap'.pause.toggle()<cr>", "Pause" },
+   q = { "<cmd>lua require'dap'.close()<cr>", "Quit" },
+   r = { "<cmd>lua require'dap'.repl.toggle()<cr>", "Toggle Repl" },
+   s = { "<cmd>lua require'dap'.continue()<cr>", "Start" },
+   t = { "<cmd>lua require'dap'.toggle_breakpoint()<cr>", "Toggle Breakpoint" },
+   x = { "<cmd>lua require'dap'.terminate()<cr>", "Terminate" },
+   u = { "<cmd>lua require'dap'.step_out()<cr>", "Step Out" },
 }
 
 -- Keymappings
@@ -98,18 +108,8 @@ lvim.builtin.telescope.defaults.mappings = {
   },
 }
 
--- Which-key keybindings for nvim-dap 
-lvim.builtin.which_key.mappings["d"] = {
-   name = "+Debugger",
-   b = { "<cmd>lua require'dap'.toggle_breakpoint()<cr>", "Set Breakpoint" },
-   c = { "<cmd>lua require'dap'.continue()<cr>", "Launch/Continue" },
-   o = { "<cmd>lua require'dap'.step_over()<cr>", "Step Over" },
-   i = { "<cmd>lua require'dap'.step_into()<cr>", "Step Into" },
-   r = { "<cmd>lua require'dap'.repl.open()<cr>", "REPL open" },
-   w = { "<cmd>help dap-widgets<cr>", "DAP Widget" },
- }
 
--- Which-key keybindings for Trouble 
+-- Which-key keybindings for Trouble
 lvim.builtin.which_key.mappings["P"] = { "<cmd>Telescope projects<CR>", "Projects" }
 lvim.builtin.which_key.mappings["t"] = {
   name = "+Trouble",
@@ -128,4 +128,8 @@ lvim.plugins = {
     "folke/trouble.nvim",
     cmd = "TroubleToggle",
   },
+  { "theHamsta/nvim-dap-virtual-text" },
+  { "rcarriga/nvim-dap-ui" },
+  { "mfussenegger/nvim-dap-python" },
+  { "nvim-telescope/telescope-dap.nvim" },
 }
